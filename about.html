@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Selah Plans</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .about-hero-text { max-width: 720px; }
+    .about-hero-text h1 { font-style: italic; margin-bottom: 20px; }
+    .about-hero-text .lead { font-size: 1.15rem; color: var(--slate); line-height: 1.8; }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .value-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    .value-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+    .value-card h3 { font-size: 1.2rem; margin-bottom: 10px; font-style: italic; }
+
+    .quote-block {
+      background: var(--terracotta-pale);
+      border-left: 4px solid var(--terracotta);
+      border-radius: 0 var(--r-md) var(--r-md) 0;
+      padding: 28px 32px;
+      margin: 40px 0;
+    }
+    .quote-block blockquote { font-family: var(--serif); font-size: 1.3rem; font-style: italic; color: var(--deep); line-height: 1.6; margin-bottom: 10px; }
+    .quote-block cite { font-size: 0.85rem; color: var(--terracotta); font-style: normal; font-weight: 600; }
+
+    .philosophy-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .team-note {
+      background: var(--olive-pale);
+      border: 1px solid #C8D8BC;
+      border-radius: var(--r-lg);
+      padding: 36px;
+    }
+
+    @media (max-width: 680px) {
+      .values-grid { grid-template-columns: 1fr; }
+      .philosophy-row { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-mark">✦</span>Selah Plans</a>
+    <button class="nav-toggle" id="navToggle">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="plans.html" class="cta-nav">Browse Plans</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="page-hero">
+  <div class="container">
+    <div class="about-hero-text">
+      <span class="section-label">Our Story</span>
+      <h1>A space to pause and be met by God</h1>
+      <p class="lead">Selah Plans began with a simple conviction: that the Bible is not just a book of principles, but a living conversation between God and human beings in the full, complicated range of their emotional lives.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Mission ── -->
+<section class="section">
+  <div class="container">
+    <div style="max-width:700px;">
+      <span class="section-label">Our Mission</span>
+      <h2 class="section-title">Meeting people in the middle of their season</h2>
+      <p style="margin-bottom:20px;">Most Bible reading plans are built around content — work through a book, read the whole Bible in a year, cover a doctrinal theme. They're valuable. But they often begin from the outside and work inward.</p>
+      <p style="margin-bottom:20px;">Selah Plans begins from the inside. It starts with a question: <em>What are you carrying today?</em> And from that honest answer, it finds the passages, reflections, and prayers that meet you there.</p>
+      <p>The Psalms are full of people bringing their real emotional states to God — grief, fear, confusion, exuberant joy. We believe that's still the invitation. Selah Plans is a tool to help people take it up.</p>
+    </div>
+
+    <div class="quote-block">
+      <blockquote>"He will not break a bruised reed or snuff out a smoldering wick."</blockquote>
+      <cite>Isaiah 42:3 — the God to whom Selah Plans points</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ── Values ── -->
+<section class="section" style="background:var(--sand);">
+  <div class="container">
+    <span class="section-label">What We Believe</span>
+    <h2 class="section-title">Convictions that shape the product</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <span class="value-icon">📖</span>
+        <h3>Scripture is alive</h3>
+        <p>The Bible is not a historical archive or a self-help resource. It is the living and active Word of God — sharper than any two-edged sword (Heb 4:12). Every plan is built to lead people into genuine encounter with that Word, not just information about it.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🌿</span>
+        <h3>Honesty is the beginning of faith</h3>
+        <p>Selah Plans doesn't ask you to have it together before you open the Bible. Doubt, fear, grief, and loneliness are not obstacles to God — they are, throughout Scripture, the very conditions in which He most frequently shows up. Start where you are.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🕯</span>
+        <h3>Slowness is not failure</h3>
+        <p>The name "Selah" is a pause, not a race. We've deliberately designed plans that invite reflection rather than information accumulation. A short plan engaged slowly and honestly is worth more than a long plan rushed through on autopilot.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🌸</span>
+        <h3>The full range of human experience belongs</h3>
+        <p>Joy and grief, certainty and doubt, elation and desolation — the Psalms hold all of it. So do we. There is no emotional state that is too raw, too confusing, or too unseemly for God. He is not fragile. Bring it all.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Philosophy ── -->
+<section class="section">
+  <div class="container">
+    <div class="philosophy-row">
+      <div>
+        <span class="section-label">Our Approach</span>
+        <h2 class="section-title">Three pillars: Read, Reflect, Pray</h2>
+        <p style="margin-bottom:20px;">Every day in every plan has the same three movements. Not because we're formulaic, but because these three practices — reading, reflecting, and praying — are the ancient rhythm of encountering God in His Word.</p>
+        <p style="margin-bottom:20px;"><strong>Read</strong> — a passage chosen specifically for your emotional season. Not a general chapter plan, but a targeted encounter with what the Bible actually says to your specific condition.</p>
+        <p style="margin-bottom:20px;"><strong>Reflect</strong> — one question that invites you to sit with the text. Not a comprehension question, but a question that has your name in it. Something that opens rather than closes.</p>
+        <p><strong>Pray</strong> — a short, voiced prayer that takes the reading and puts it into the first person. A model you can make your own, or simply a companion for days when words don't come easily.</p>
+      </div>
+      <div>
+        <div class="team-note">
+          <span class="section-label" style="color:var(--olive);">Why the AI Generator?</span>
+          <h3 style="font-style:italic;margin-bottom:14px;">Your season, described in your words</h3>
+          <p style="margin-bottom:16px;">Built-in plans cover the most common emotional seasons. But human experience is more nuanced than eight categories. The AI generator exists for the person who doesn't fit neatly into "anxiety" or "grief" — who might describe their season as "slowly losing hope that things will change" or "finally free of something that held me for years."</p>
+          <p style="margin-bottom:16px;">You set the duration, the reading style, and the thematic emphasis. The generator finds the Scriptures and builds the reflection structure. Then you can edit individual days, regenerate a single day, and save or export the plan.</p>
+          <p>It is a tool in service of an ancient practice. The goal is still the same: to meet God in His Word.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Who it's for ── -->
+<section class="section" style="background:var(--sand);">
+  <div class="container">
+    <div style="max-width:700px;margin:0 auto;text-align:center;">
+      <span class="section-label">Who It's For</span>
+      <h2 class="section-title">For anyone willing to be honest with God</h2>
+      <p style="margin-bottom:24px;font-size:1.05rem;">Selah Plans is for the person who hasn't opened their Bible in months and doesn't know where to start. For the seasoned reader who wants a more emotionally integrated practice. For the one walking through something hard with no map. For the one full of gratitude and wanting to celebrate well.</p>
+      <p>We've built Selah Plans to be welcoming to people wherever they are in their faith journey — from deep conviction to tenuous questions. You don't need to have the right answers to use it. You just need to show up.</p>
+      <div class="mt-8">
+        <a href="plans.html" class="btn btn-primary btn-lg">Find Your Plan</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo"><span class="footer-logo-mark">✦</span> Selah Plans</div>
+        <p class="footer-desc">Bible reading plans centred on your emotional season. Pause, breathe, and meet God where you are.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Pages</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="plans.html">Plans</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Plans</h5>
+        <ul>
+          <li><a href="plans.html?mood=anxiety">For Anxiety</a></li>
+          <li><a href="plans.html?mood=grief">For Grief</a></li>
+          <li><a href="plans.html?mood=doubt">For Doubt</a></li>
+          <li><a href="plans.html?mood=joy">For Joy</a></li>
+          <li><a href="plans.html?mood=gratitude">For Gratitude</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Selah Plans. Made with faith and care.</span>
+      <span>The Word of God endures forever — <a href="plans.html">Is. 40:8</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+  document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+</script>
+</body>
+</html>

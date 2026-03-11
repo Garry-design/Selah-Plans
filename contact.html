@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Selah Plans</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; }
+    .contact-info { display: flex; flex-direction: column; gap: 20px; }
+    .contact-item { display: flex; gap: 14px; align-items: flex-start; }
+    .contact-icon { width: 44px; height: 44px; background: var(--terracotta-pale); border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-item h4 { font-family: var(--sans); font-weight: 600; font-size: 0.9rem; margin-bottom: 3px; }
+    .contact-item p, .contact-item a { font-size: 0.9rem; color: var(--muted); }
+    .contact-item a:hover { color: var(--terracotta); }
+
+    .contact-form-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 40px; box-shadow: var(--shadow-md); }
+    .contact-form-card h3 { font-style: italic; margin-bottom: 6px; }
+    .contact-form-card > p { font-size: 0.93rem; color: var(--muted); margin-bottom: 24px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-row { margin-bottom: 16px; }
+
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; }
+    .faq-q { padding: 16px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: var(--card); font-weight: 600; font-size: 0.93rem; transition: background 0.2s; user-select: none; }
+    .faq-q:hover { background: var(--sand); }
+    .faq-q span { transition: transform 0.25s; display: inline-block; color: var(--terracotta); }
+    .faq-a { display: none; padding: 0 20px 16px; font-size: 0.9rem; color: var(--slate); background: var(--card); line-height: 1.7; }
+    .faq-item.open .faq-q span { transform: rotate(180deg); }
+    .faq-item.open .faq-a { display: block; }
+
+    #successMsg { display: none; background: var(--olive-pale); border: 1px solid #C8D8BC; border-radius: var(--r-md); padding: 20px; text-align: center; color: var(--olive); margin-top: 16px; font-weight: 500; }
+
+    @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } .form-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-mark">✦</span>Selah Plans</a>
+    <button class="nav-toggle" id="navToggle">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="plans.html" class="cta-nav">Browse Plans</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="page-hero">
+  <div class="container">
+    <span class="section-label">Get in Touch</span>
+    <h1 style="font-style:italic;max-width:500px;">We'd love to hear from you</h1>
+    <p class="section-subtitle" style="margin-top:14px;">Questions, feedback, prayer requests, feature ideas — we're here for all of it.</p>
+  </div>
+</section>
+
+<!-- ── Contact Section ── -->
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Info column -->
+      <div>
+        <span class="section-label">Contact Information</span>
+        <h2 class="section-title" style="margin-bottom:28px;font-style:italic;">Let's talk</h2>
+
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <h4>Email</h4>
+              <a href="mailto:hello@selahplans.com">hello@selahplans.com</a>
+              <p>We aim to respond within 2 business days.</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">💬</div>
+            <div>
+              <h4>Feedback & Feature Requests</h4>
+              <p>Have an idea for a new mood category, a plan you'd love to see, or something that isn't working? Use the form and select "Feedback."</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🙏</div>
+            <div>
+              <h4>Prayer Requests</h4>
+              <p>We'd be honoured to pray for you. Submit your request through the form — it is read with care and held in confidence.</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🤝</div>
+            <div>
+              <h4>Partnerships</h4>
+              <p>Churches, small groups, or faith organisations interested in Selah Plans — reach out via email to discuss how we might work together.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <div style="background:var(--gold-pale);border:1px solid #E0D0A8;border-radius:var(--r-md);padding:20px;">
+          <div style="font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--deep);margin-bottom:6px;">"Your word is a lamp for my feet, a light on my path."</div>
+          <div style="font-size:0.82rem;color:var(--gold);font-weight:600;">Psalm 119:105</div>
+        </div>
+      </div>
+
+      <!-- Form column -->
+      <div>
+        <div class="contact-form-card">
+          <h3>Send a message</h3>
+          <p>Fill in the form below and we'll get back to you.</p>
+          <div id="contactFormWrap">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">First Name <span style="color:var(--terracotta)">*</span></label>
+                <input type="text" id="fName" class="form-input" placeholder="Sarah" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" id="fLast" class="form-input" placeholder="Jones" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Email Address <span style="color:var(--terracotta)">*</span></label>
+                <input type="email" id="fEmail" class="form-input" placeholder="you@example.com" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Subject</label>
+                <select id="fSubject" class="form-select">
+                  <option value="">— Select a topic —</option>
+                  <option>General question</option>
+                  <option>Feedback or feature request</option>
+                  <option>Prayer request</option>
+                  <option>Bug report</option>
+                  <option>Partnership enquiry</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Message <span style="color:var(--terracotta)">*</span></label>
+                <textarea id="fMessage" class="form-textarea" rows="5" placeholder="Write your message here..."></textarea>
+              </div>
+            </div>
+            <div class="form-row">
+              <label style="display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--slate);cursor:pointer;">
+                <input type="checkbox" id="fPrayerCheck" style="margin-top:2px;accent-color:var(--terracotta);" />
+                I'd like someone to pray for this message.
+              </label>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitForm()">Send Message →</button>
+          </div>
+          <div id="successMsg">
+            <div style="font-size:1.5rem;margin-bottom:8px;">🙏</div>
+            <div>Thank you for your message. We'll be in touch soon.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="section" style="background:var(--sand);">
+  <div class="container">
+    <div style="max-width:720px;margin:0 auto;">
+      <div class="text-center" style="margin-bottom:48px;">
+        <span class="section-label">Common Questions</span>
+        <h2 style="font-style:italic;">Frequently Asked</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Is Selah Plans free to use? <span>▾</span></div>
+          <div class="faq-a">Yes — entirely. There are no subscriptions, no paywalls, and no accounts required. The built-in plans and all core features are free. The AI custom generator uses the Anthropic API and is available to use freely in this version.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Do I need to create an account? <span>▾</span></div>
+          <div class="faq-a">No account is required. You can set a name for a personalised experience, but it's entirely optional and stored only in your browser — nothing is sent to any server. All your plan data and progress is saved locally.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Where is my data stored? <span>▾</span></div>
+          <div class="faq-a">Everything is stored in your browser's local storage. This means your plans and progress are private to your device and never sent to us. If you clear your browser data, your plans will be lost — that's why we recommend exporting important plans as JSON to back them up.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Which Bible translation does Selah Plans use? <span>▾</span></div>
+          <div class="faq-a">Selah Plans provides Scripture references rather than full text, encouraging you to read in your preferred translation. The reflection prompts and content are written in a translation-neutral way, drawing from the NIV but readily applicable across translations.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Can I suggest a new mood category or plan? <span>▾</span></div>
+          <div class="faq-a">Absolutely — we'd love to hear your suggestions. Use the contact form above and select "Feedback or feature request." We're genuinely building this with our community in mind.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Can I use Selah Plans in my church or small group? <span>▾</span></div>
+          <div class="faq-a">Yes! You're welcome to use Selah Plans in your church, small group, or faith community. Plans can be exported as JSON and shared with others. If you'd like to discuss a more structured partnership, please reach out via email.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo"><span class="footer-logo-mark">✦</span> Selah Plans</div>
+        <p class="footer-desc">Bible reading plans centred on your emotional season. Pause, breathe, and meet God where you are.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Pages</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="plans.html">Plans</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Plans</h5>
+        <ul>
+          <li><a href="plans.html?mood=anxiety">For Anxiety</a></li>
+          <li><a href="plans.html?mood=grief">For Grief</a></li>
+          <li><a href="plans.html?mood=doubt">For Doubt</a></li>
+          <li><a href="plans.html?mood=joy">For Joy</a></li>
+          <li><a href="plans.html?mood=gratitude">For Gratitude</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Selah Plans. Made with faith and care.</span>
+      <span>The Word of God endures forever — Is. 40:8</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+  document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+
+  function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
+  }
+
+  function submitForm() {
+    const name = document.getElementById('fName').value.trim();
+    const email = document.getElementById('fEmail').value.trim();
+    const msg = document.getElementById('fMessage').value.trim();
+    if (!name || !email || !msg) { alert('Please fill in your name, email, and message.'); return; }
+    document.getElementById('contactFormWrap').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+</script>
+</body>
+</html>

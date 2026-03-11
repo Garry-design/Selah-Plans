@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selah Plans — Bible Reading for Every Emotional Season</title>
+  <meta name="description" content="Bible reading plans centred on your emotional season. Choose your mood, start a plan, and meet God in the middle of it." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(160deg, var(--sand) 0%, var(--cream) 55%, #EEF2E8 100%);
+      position: relative;
+      overflow: hidden;
+      padding-top: var(--nav-h);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -120px; top: 50%;
+      transform: translateY(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(184,94,48,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: 10%; bottom: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(107,124,90,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 80px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--terracotta-pale);
+      color: var(--terracotta);
+      border: 1px solid #E8C3A8;
+      padding: 6px 14px;
+      border-radius: var(--r-pill);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-style: italic;
+      color: var(--deep);
+      margin-bottom: 22px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 em { font-style: normal; color: var(--terracotta); }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-bottom: 36px;
+      max-width: 440px;
+      line-height: 1.75;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .hero-note { font-size: 0.8rem; color: var(--muted); margin-top: 16px; }
+    .hero-note span { color: var(--olive); font-weight: 500; }
+
+    /* hero visual */
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+    }
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 22px 26px;
+      box-shadow: var(--shadow-md);
+      animation: float-up 0.6s ease forwards;
+      opacity: 0;
+    }
+    .hero-card:nth-child(1) { animation-delay: 0.3s; }
+    .hero-card:nth-child(2) { animation-delay: 0.5s; margin-left: 40px; }
+    .hero-card:nth-child(3) { animation-delay: 0.7s; }
+    @keyframes float-up { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
+    .hcard-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .hcard-mood { font-family: var(--serif); font-size: 1.4rem; color: var(--deep); margin-bottom: 4px; }
+    .hcard-ref { font-size: 0.85rem; color: var(--terracotta); font-weight: 500; }
+    .hcard-bar { margin-top: 14px; }
+    .hcard-bar-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-bottom: 5px; }
+
+    /* ── How it works ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 56px;
+    }
+    .step { position: relative; }
+    .step-num {
+      width: 40px; height: 40px;
+      background: var(--terracotta);
+      color: #fff;
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+    }
+    .step h4 { font-family: var(--sans); font-weight: 600; font-size: 1rem; margin-bottom: 8px; }
+    .step p { font-size: 0.92rem; }
+
+    /* ── Mood intro ── */
+    .moods-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 36px;
+    }
+    .mood-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 18px;
+      border-radius: var(--r-pill);
+      background: var(--card);
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--slate);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+    }
+    .mood-display:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+    /* ── Stats ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat {
+      background: var(--card);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .stat-num { font-family: var(--serif); font-size: 2.4rem; color: var(--terracotta); line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 0.85rem; color: var(--muted); }
+
+    /* ── CTA band ── */
+    .cta-band {
+      background: var(--deep);
+      color: #fff;
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      left: -80px; top: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(184,94,48,0.2) 0%, transparent 65%);
+    }
+    .cta-band h2 { color: #fff; font-style: italic; margin-bottom: 16px; }
+    .cta-band p { color: rgba(255,255,255,0.65); max-width: 480px; font-size: 1.05rem; margin-bottom: 32px; }
+
+    /* responsive */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { display: none; }
+      .steps-grid { grid-template-columns: 1fr; gap: 24px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-mark">✦</span>
+      Selah Plans
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="plans.html" class="cta-nav">Browse Plans</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">✦ Bible Reading by Emotional Season</div>
+      <h1>Scripture for <em>where you are</em> right now</h1>
+      <p class="hero-sub">Selah Plans matches your emotional season — anxiety, grief, joy, doubt, and more — with a personalised Bible reading journey that meets you where you are.</p>
+      <div class="hero-actions">
+        <a href="plans.html" class="btn btn-primary btn-lg">Start a Plan</a>
+        <a href="about.html" class="btn btn-secondary btn-lg">Learn More</a>
+      </div>
+      <p class="hero-note">✦ Free to use &nbsp;·&nbsp; <span>8 built-in plans</span> &nbsp;·&nbsp; AI-powered custom generator</p>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-card">
+        <div class="hcard-label">Today's Reading</div>
+        <div class="hcard-mood">🌿 Peace in the Storm</div>
+        <div class="hcard-ref">Day 3 · Matthew 6:25–34</div>
+        <div class="hcard-bar">
+          <div class="hcard-bar-label"><span>Progress</span><span>3/7 days</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:43%"></div></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hcard-label">Reflection prompt</div>
+        <div style="font-size:0.93rem;color:var(--slate);line-height:1.65;">"Which 'tomorrow' are you borrowing trouble from today? What would it look like to seek His kingdom first?"</div>
+      </div>
+      <div class="hero-card">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="tag tag-terracotta">🌿 Anxiety</span>
+          <span class="tag tag-olive">🌧 Grief</span>
+          <span class="tag tag-gold">☀️ Joy</span>
+          <span class="tag">🌫 Doubt</span>
+          <span class="tag">🕯 Fear</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats ── -->
+<section class="section-sm" style="background:var(--sand);">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">8</div><div class="stat-label">Built-in Plans</div></div>
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">Emotional Seasons</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Custom Plans via AI</div></div>
+      <div class="stat"><div class="stat-num">0</div><div class="stat-label">Cost to Start</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Moods Section ── -->
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+      <div>
+        <span class="section-label">Emotional Seasons</span>
+        <h2 class="section-title">Scripture for every season of the heart</h2>
+        <p style="margin-bottom:20px;">Whether you're carrying anxiety into Monday morning, walking through grief that doesn't have a name yet, or sitting in quiet gratitude — there's a plan for where you are. Selah Plans doesn't offer one-size-fits-all devotions. It starts with your emotional season and works outward from there.</p>
+        <p>Choose a mood below, or let the AI generator create something entirely tailored to your situation.</p>
+        <div class="moods-strip">
+          <a href="plans.html?mood=anxiety" class="mood-display">🌿 Anxiety</a>
+          <a href="plans.html?mood=grief" class="mood-display">🌧 Grief</a>
+          <a href="plans.html?mood=doubt" class="mood-display">🌫 Doubt</a>
+          <a href="plans.html?mood=fear" class="mood-display">🕯 Fear</a>
+          <a href="plans.html?mood=joy" class="mood-display">☀️ Joy</a>
+          <a href="plans.html?mood=gratitude" class="mood-display">🌸 Gratitude</a>
+          <a href="plans.html?mood=loneliness" class="mood-display">🌙 Loneliness</a>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="padding:36px;">
+          <div style="margin-bottom:24px;">
+            <span class="tag tag-terracotta" style="margin-bottom:12px;display:inline-block;">Featured Plan</span>
+            <h3 style="font-style:italic;margin-bottom:8px;">Peace in the Storm</h3>
+            <p style="font-size:0.92rem;">7-day plan through God's invitations to cast your cares, anchored in Philippians 4, Psalm 46, Matthew 6, Isaiah 26, and Romans 8.</p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;">
+            <span class="tag">peace</span>
+            <span class="tag">trust</span>
+            <span class="tag">prayer</span>
+            <span class="tag">surrender</span>
+          </div>
+          <div class="progress-bar-wrap" style="margin-bottom:8px;"><div class="progress-bar-fill" style="width:0%"></div></div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-bottom:20px;">7 days · Not started</div>
+          <a href="plans.html?mood=anxiety" class="btn btn-primary" style="width:100%;justify-content:center;">Begin This Plan →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How it Works ── -->
+<section class="section" style="background:var(--sand);">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-title">From your season to Scripture, step by step</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Selah Plans is built for simplicity and depth at the same time.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step card">
+        <div class="step-num">1</div>
+        <h4>Choose your season</h4>
+        <p>Select the mood or emotional season you're in — anxiety, grief, joy, doubt, fear, loneliness, gratitude, or describe something more specific for the AI to work with.</p>
+      </div>
+      <div class="step card">
+        <div class="step-num">2</div>
+        <h4>Pick or generate a plan</h4>
+        <p>Choose from built-in plans crafted around specific Scriptures, or generate a custom plan — setting the duration, reading style, and thematic emphasis that fits your season.</p>
+      </div>
+      <div class="step card">
+        <div class="step-num">3</div>
+        <h4>Read, reflect, and pray</h4>
+        <p>Each day includes a Scripture passage, a reflection question that sits with you, and a short prayer. Take your time. This isn't a box to tick — it's a space to meet God.</p>
+      </div>
+    </div>
+    <div class="text-center mt-12">
+      <a href="plans.html" class="btn btn-primary btn-lg">Explore All Plans</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── What is Selah ── -->
+<section class="section">
+  <div class="container">
+    <div style="max-width:680px;margin:0 auto;text-align:center;">
+      <span class="section-label">The Name</span>
+      <h2 class="section-title" style="font-style:italic;">"Selah"</h2>
+      <p style="font-size:1.05rem;margin-bottom:20px;">The Hebrew word <em>selah</em> appears 74 times in the Psalms. Its precise meaning is debated — but most scholars understand it as a pause, a breath, a moment to stop and let what was just said sink in.</p>
+      <p>In an age of endless noise and constant motion, Selah Plans invites you to stop. To sit with Scripture not as a productivity task, but as a meeting with the living God. To pause long enough to be met by the One who knows every season of your heart.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Band ── -->
+<section class="cta-band">
+  <div class="container text-center" style="position:relative;">
+    <h2>Begin where you are</h2>
+    <p style="margin:0 auto 32px;">No account required. No subscriptions. Just you, your Bible, and a plan that meets your season. Start today.</p>
+    <a href="plans.html" class="btn btn-primary btn-lg" style="background:var(--terracotta-lt);">Browse Plans →</a>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo"><span class="footer-logo-mark">✦</span> Selah Plans</div>
+        <p class="footer-desc">Bible reading plans centred on your emotional season. Pause, breathe, and meet God where you are.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Pages</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="plans.html">Plans</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Plans</h5>
+        <ul>
+          <li><a href="plans.html?mood=anxiety">For Anxiety</a></li>
+          <li><a href="plans.html?mood=grief">For Grief</a></li>
+          <li><a href="plans.html?mood=doubt">For Doubt</a></li>
+          <li><a href="plans.html?mood=joy">For Joy</a></li>
+          <li><a href="plans.html?mood=gratitude">For Gratitude</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Selah Plans. Made with faith and care.</span>
+      <span>The Word of God endures forever — <a href="plans.html">Is. 40:8</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+  // Mobile nav toggle
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
