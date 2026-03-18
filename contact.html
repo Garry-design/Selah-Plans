@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Selah Plans</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .contact-hero {
+      padding: calc(var(--nav-h) + 80px) 0 72px;
+      background: linear-gradient(160deg, var(--sand) 0%, var(--cream) 55%);
+    }
+    .contact-hero h1 { font-style: italic; margin-bottom: 16px; }
+    .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 52px; align-items: start; }
+    .contact-form-card { background: var(--card); border: 1px solid var(--border-lt); border-radius: var(--r-2xl); padding: 40px; box-shadow: var(--sh-md); }
+    .contact-form-card h3 { font-family: var(--serif); font-style: italic; font-size: 1.3rem; margin-bottom: 6px; }
+    .contact-form-card p { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 24px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-row.full { grid-template-columns: 1fr; }
+    .contact-sidebar { display: flex; flex-direction: column; gap: 18px; }
+    .sidebar-card { background: var(--card); border: 1px solid var(--border-lt); border-radius: var(--r-xl); padding: 24px; }
+    .sidebar-card h4 { font-size: 0.9rem; margin-bottom: 8px; font-weight: 700; color: var(--ink); }
+    .sidebar-card p { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.68; }
+    .success-msg { display: none; text-align: center; padding: 32px 24px; }
+    .success-msg .success-icon { font-size: 2.5rem; margin-bottom: 14px; display: block; }
+    .success-msg h3 { font-family: var(--serif); font-style: italic; margin-bottom: 8px; }
+    .notice-card { background: var(--terra-pale); border: 1px solid var(--terra-border); border-radius: var(--r-lg); padding: 16px 20px; display: flex; gap: 12px; }
+    .notice-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .notice-text { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.65; }
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-mark">✦</span>Selah Plans</a>
+    <button class="nav-toggle" id="navToggle">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="plans.html" class="nav-cta">Browse Plans</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="contact-hero">
+  <div class="container">
+    <div style="max-width:560px;">
+      <div class="section-eyebrow">Get in Touch</div>
+      <h1>We'd love to hear from you</h1>
+      <p class="lead">Suggestions, feedback, questions about the plans, or just a note — we read everything.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--cream-deep);padding-top:0;margin-top:-40px;">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Form -->
+      <div class="contact-form-card">
+        <h3>Send a message</h3>
+        <p>Your message will be sent to the Selah Plans team. We typically respond within a few days.</p>
+        <div id="formWrap">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First name <span style="color:var(--terra);">*</span></label>
+                <input type="text" id="cfFirst" class="form-input" placeholder="Your first name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last name</label>
+                <input type="text" id="cfLast" class="form-input" placeholder="Last name" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email <span style="color:var(--terra);">*</span></label>
+              <input type="email" id="cfEmail" class="form-input" placeholder="your@email.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Subject</label>
+              <select id="cfSubject" class="form-select">
+                <option value="">Select a topic...</option>
+                <option>Feedback on a plan</option>
+                <option>Suggestion for a new mood/plan</option>
+                <option>Technical issue</option>
+                <option>Scripture feedback</option>
+                <option>General question</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Message <span style="color:var(--terra);">*</span></label>
+              <textarea id="cfMessage" class="form-textarea" rows="5" placeholder="What's on your mind?"></textarea>
+            </div>
+            <div id="cfError" style="color:#C46060;font-size:0.83rem;display:none;"></div>
+            <button class="btn btn-primary btn-lg w-full" onclick="submitForm()" style="justify-content:center;">Send Message →</button>
+          </div>
+        </div>
+        <div class="success-msg" id="successMsg">
+          <span class="success-icon">✉️</span>
+          <h3>Message sent!</h3>
+          <p>Thank you for reaching out. We'll be in touch soon.</p>
+          <a href="plans.html" class="btn btn-primary mt-6">Browse Plans →</a>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="contact-sidebar">
+        <div class="notice-card">
+          <div class="notice-icon">🙏</div>
+          <div class="notice-text">If you're going through something serious, please also reach out to a pastor, trusted friend, or mental health professional. Selah Plans cares about you as a whole person.</div>
+        </div>
+        <div class="sidebar-card">
+          <h4>Suggest a plan</h4>
+          <p>Have an emotional season that isn't covered? A passage that would be perfect for a specific mood? Let us know and we'll consider adding it to a future update.</p>
+        </div>
+        <div class="sidebar-card">
+          <h4>Report a Scripture error</h4>
+          <p>If you notice a reference that seems wrong or a reflection that doesn't match the passage, please flag it. Accuracy matters to us.</p>
+        </div>
+        <div class="sidebar-card">
+          <h4>Share Selah Plans</h4>
+          <p>The best way to help Selah Plans grow is to share it with a friend who needs it. No sign-up required — just the URL.</p>
+        </div>
+        <div class="sidebar-card" style="background:var(--ink);border-color:transparent;">
+          <h4 style="color:rgba(253,250,244,0.9);">Start a plan today</h4>
+          <p style="color:rgba(253,250,244,0.5);margin-bottom:14px;">You don't need to send a message first. Just open the plans and begin.</p>
+          <a href="plans.html" class="btn btn-primary btn-sm">Browse Plans →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-brand-logo"><span class="footer-brand-logo-mark">✦</span>Selah Plans</div><p class="footer-desc">Bible reading plans centred on your emotional season.</p></div>
+      <div class="footer-col"><h6>Pages</h6><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="plans.html">Plans</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Selah Plans.</span><span>Isaiah 40:8</span></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+
+function submitForm() {
+  const first = document.getElementById('cfFirst').value.trim();
+  const email = document.getElementById('cfEmail').value.trim();
+  const message = document.getElementById('cfMessage').value.trim();
+  const err = document.getElementById('cfError');
+  if (!first || !email || !message) {
+    err.textContent = 'Please fill in your name, email, and message.';
+    err.style.display = '';
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    err.textContent = 'Please enter a valid email address.';
+    err.style.display = '';
+    return;
+  }
+  err.style.display = 'none';
+  document.getElementById('formWrap').style.display = 'none';
+  document.getElementById('successMsg').style.display = '';
+}
+</script>
+</body>
+</html>

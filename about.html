@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Selah Plans</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .about-hero {
+      padding: calc(var(--nav-h) + 80px) 0 80px;
+      background: linear-gradient(160deg, var(--sand) 0%, var(--cream) 55%);
+    }
+    .about-hero-inner { max-width: 680px; }
+    .about-hero h1 { font-style: italic; margin-bottom: 18px; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px; }
+    .value-card { background: var(--card); border: 1px solid var(--border-lt); border-radius: var(--r-xl); padding: 28px; box-shadow: var(--sh-sm); }
+    .value-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+    .value-title { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--ink); margin-bottom: 8px; }
+    .value-desc { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.72; }
+    .selah-banner {
+      background: var(--ink);
+      color: #fff;
+      padding: 60px 0;
+    }
+    .selah-banner-inner { max-width: 600px; margin: 0 auto; text-align: center; }
+    .selah-banner h2 { color: rgba(253,250,244,0.95); font-style: italic; margin-bottom: 16px; }
+    .selah-banner p { color: rgba(253,250,244,0.55); font-size: 1.05rem; line-height: 1.75; margin-bottom: 14px; }
+    .faq-list { display: flex; flex-direction: column; gap: 14px; margin-top: 48px; }
+    .faq-item { background: var(--card); border: 1px solid var(--border-lt); border-radius: var(--r-xl); overflow: hidden; }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 20px 26px; cursor: pointer; gap: 12px; }
+    .faq-q-text { font-weight: 700; font-size: 0.95rem; color: var(--ink); }
+    .faq-icon { color: var(--terra); font-size: 1.1rem; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 26px 22px; color: var(--ink-soft); font-size: 0.9rem; line-height: 1.75; }
+    .faq-item.open .faq-a { display: block; }
+    @media (max-width: 768px) { .values-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-mark">✦</span>Selah Plans</a>
+    <button class="nav-toggle" id="navToggle">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="plans.html" class="nav-cta">Browse Plans</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="about-hero">
+  <div class="container">
+    <div class="about-hero-inner">
+      <div class="section-eyebrow">Our Story</div>
+      <h1>A place to pause<br>and meet God</h1>
+      <p class="lead">Selah Plans was built on a simple conviction: the Bible has something to say to every human emotion — anxiety, grief, shame, joy, anger, and everything in between. The question is finding the right door in.</p>
+      <p style="margin-top:12px;">Most Bible reading plans assume you arrive ready to learn. Selah Plans assumes you arrive exactly as you are — tired, afraid, grateful, angry, broken, or bursting. And from there, it helps you meet the living God.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Selah meaning -->
+<div class="selah-banner">
+  <div class="container">
+    <div class="selah-banner-inner">
+      <div class="section-eyebrow" style="justify-content:center;color:var(--terra-lt);">The Name</div>
+      <h2>What is Selah?</h2>
+      <p>The Hebrew word <em>selah</em> appears 74 times in the Psalms. Its precise meaning is debated — but most scholars understand it as a pause. A breath. A moment for the words just spoken to settle into the soul.</p>
+      <p>In an age of relentless pace and perpetual noise, we believe this is exactly what Scripture reading needs — not speed, not completion, not efficiency. Just stopping. Sitting. Listening.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Values -->
+<section class="section" style="background:var(--cream-deep);">
+  <div class="container">
+    <div class="section-eyebrow">What We Believe</div>
+    <h2 class="section-title">Built on a few convictions</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <span class="value-icon">📍</span>
+        <div class="value-title">Meet people where they are</div>
+        <div class="value-desc">The Psalms don't pretend. Jesus met people in the middle of their storms, not after. So do we. Every plan starts with your actual emotional reality — not where you think you should be.</div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🤲</span>
+        <div class="value-title">Scripture does the work</div>
+        <div class="value-desc">We curate the door. God's Word does the healing, comforting, convicting, and transforming. We never try to replace the text — we try to help you slow down enough to actually receive it.</div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">⏳</span>
+        <div class="value-title">Unhurried is faithful</div>
+        <div class="value-desc">Reading the Bible through in a year has its place. But sometimes faithfulness looks like sitting with one passage for a week. Selah Plans honours slowness as a spiritual discipline.</div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">💬</span>
+        <div class="value-title">Honest prayer matters</div>
+        <div class="value-desc">The prayers in each plan are written to model honest, specific, unsentimental prayer — because that's the kind God answers. Not polished performance, but real conversation.</div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🎁</span>
+        <div class="value-title">Free always</div>
+        <div class="value-desc">Scripture should not be behind a paywall. Selah Plans is free because access to God's Word should never depend on whether you can afford a subscription.</div>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🏠</span>
+        <div class="value-title">A companion, not a replacement</div>
+        <div class="value-desc">Selah Plans is a companion to your local church, your pastor, your community. Not a substitute. We never want to become what you avoid the hard work of real Christian community to use instead.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container" style="max-width:720px;">
+    <div class="section-eyebrow">Common Questions</div>
+    <h2 class="section-title">FAQ</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span class="faq-q-text">Do I need an account?</span><span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">No account required to browse or use plans. If you enter a name in the plans page, your progress is saved locally in your browser. No server, no password, no email — just your device.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span class="faq-q-text">Is it really free?</span><span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Yes. Completely free. No subscription, no premium tier, no ads. The AI generator makes calls directly to the Anthropic API — which does use API credits — but the built-in plans are entirely free to use.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span class="faq-q-text">Which Bible translation do you use?</span><span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">We don't include full text — we provide Scripture references, which you can read in your preferred translation. Each plan links directly to Bible Gateway so you can read in NIV, ESV, NLT, or whichever version you prefer.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span class="faq-q-text">Can I export my generated plans?</span><span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Yes — any plan (built-in or generated) can be exported as a JSON file and imported back later, even on a different device. This is a practical way to back up progress or share a plan with someone.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span class="faq-q-text">How do I use Selah Plans alongside my church?</span><span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Selah Plans works best as a personal devotional tool — something you use in your own quiet time, alongside Sunday services, community groups, and pastoral care. It's not designed to replace any of those things, but to supplement your private engagement with Scripture.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span class="faq-q-text">I'm going through something serious. Is this enough?</span><span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Selah Plans is a starting point, not a substitute for pastoral care, counselling, or professional support. If you're in crisis — emotionally, spiritually, or practically — please reach out to your pastor, a trusted friend, or a mental health professional. This app is a companion on the journey, not a destination.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:var(--ink);">
+  <div class="container" style="max-width:520px;text-align:center;">
+    <div class="section-eyebrow" style="justify-content:center;color:var(--terra-lt);">Start Here</div>
+    <h2 style="color:rgba(253,250,244,0.95);font-style:italic;margin-bottom:14px;">Begin where you are today</h2>
+    <p style="color:rgba(253,250,244,0.5);margin-bottom:28px;">No preparation required. No right mood needed. Just show up and let Scripture meet you.</p>
+    <a href="plans.html" class="btn btn-primary btn-lg">Browse All Plans →</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo"><span class="footer-brand-logo-mark">✦</span>Selah Plans</div>
+        <p class="footer-desc">Bible reading plans centred on your emotional season.</p>
+      </div>
+      <div class="footer-col"><h6>Pages</h6><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="plans.html">Plans</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Selah Plans.</span><span>Isaiah 40:8</span></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+</script>
+</body>
+</html>

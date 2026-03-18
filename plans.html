@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plans — Selah Plans</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    body { background: var(--cream-deep); }
+    .plans-page { padding-top: var(--nav-h); }
+
+    /* ── Header ── */
+    .plans-topbar {
+      background: linear-gradient(160deg, var(--ink) 0%, #2E2820 100%);
+      padding: 48px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .plans-topbar::before {
+      content: '';
+      position: absolute;
+      right: -80px; top: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(176,85,48,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .topbar-inner { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+    .topbar-title { font-family: var(--serif); font-style: italic; font-size: clamp(1.6rem,3.5vw,2.4rem); color: rgba(253,250,244,0.95); margin-bottom: 6px; }
+    .topbar-sub { font-size: 0.9rem; color: rgba(253,250,244,0.45); margin-bottom: 28px; }
+    .topbar-stats { display: flex; gap: 28px; flex-wrap: wrap; padding-bottom: 28px; }
+    .tstat { text-align: center; }
+    .tstat-num { font-family: var(--serif); font-size: 1.7rem; color: var(--terra-lt); line-height: 1; }
+    .tstat-label { font-size: 0.68rem; color: rgba(253,250,244,0.4); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px; }
+
+    /* Account widget in topbar */
+    .account-widget {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r-xl);
+      padding: 20px;
+      min-width: 240px;
+    }
+    .aw-logged-out label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(253,250,244,0.45); display: block; margin-bottom: 8px; }
+    .aw-input {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--r-md);
+      padding: 9px 13px;
+      color: rgba(253,250,244,0.9);
+      font-size: 0.88rem;
+      font-family: var(--sans);
+      width: 100%;
+      outline: none;
+      margin-bottom: 8px;
+    }
+    .aw-input::placeholder { color: rgba(253,250,244,0.3); }
+    .aw-input:focus { border-color: var(--terra-lt); }
+    .aw-btn {
+      background: var(--terra);
+      color: #fff;
+      border: none;
+      border-radius: var(--r-pill);
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-family: var(--sans);
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.15s;
+    }
+    .aw-btn:hover { background: var(--terra-lt); }
+
+    .aw-logged-in { display: none; }
+    .aw-avatar {
+      width: 44px; height: 44px;
+      background: var(--terra);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 10px rgba(176,85,48,0.4);
+    }
+    .aw-name { font-weight: 700; font-size: 0.95rem; color: rgba(253,250,244,0.9); margin-bottom: 2px; }
+    .aw-sub { font-size: 0.73rem; color: rgba(253,250,244,0.4); margin-bottom: 12px; }
+    .aw-stats-row { display: flex; gap: 16px; margin-bottom: 12px; }
+    .aw-stat-num { font-family: var(--serif); font-size: 1.1rem; color: var(--terra-lt); }
+    .aw-stat-label { font-size: 0.65rem; color: rgba(253,250,244,0.4); text-transform: uppercase; letter-spacing: 0.06em; }
+    .aw-logout { font-size: 0.75rem; color: rgba(253,250,244,0.35); cursor: pointer; text-decoration: underline; background: none; border: none; }
+    .aw-logout:hover { color: rgba(253,250,244,0.6); }
+
+    /* Tab bar */
+    .tab-bar {
+      background: rgba(255,255,255,0.05);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      margin-top: 8px;
+    }
+    .tab-bar-inner { display: flex; gap: 0; }
+    .tab-btn {
+      padding: 14px 22px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: rgba(253,250,244,0.45);
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 2.5px solid transparent;
+      transition: all 0.15s;
+      font-family: var(--sans);
+      letter-spacing: 0.01em;
+    }
+    .tab-btn:hover { color: rgba(253,250,244,0.7); }
+    .tab-btn.active { color: rgba(253,250,244,0.95); border-bottom-color: var(--terra-lt); }
+
+    /* ── Body ── */
+    .plans-body { max-width: var(--max); margin: 0 auto; padding: 32px 28px 80px; }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border-lt);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .panel-head {
+      padding: 18px 26px;
+      border-bottom: 1px solid var(--border-lt);
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .panel-title { font-family: var(--serif); font-size: 1rem; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+    .panel-body { padding: 26px; }
+
+    /* Tab panels */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* VOTD in plans */
+    .votd-strip {
+      background: linear-gradient(135deg, var(--ink) 0%, var(--ink-mid) 100%);
+      border-radius: var(--r-xl);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .votd-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .votd-strip-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--terra-lt); margin-bottom: 5px; }
+    .votd-strip-text { font-family: var(--serif); font-style: italic; color: rgba(253,250,244,0.9); font-size: 0.95rem; line-height: 1.6; margin-bottom: 5px; }
+    .votd-strip-ref { font-size: 0.78rem; font-weight: 700; color: var(--terra-lt); }
+
+    /* Mood + tag filters */
+    .filter-section { margin-bottom: 22px; }
+    .filter-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
+    .mood-chips-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+    .tag-chips-row { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag-chip {
+      padding: 3px 10px; font-size: 0.73rem; font-weight: 700; border-radius: var(--r-pill);
+      border: 1px solid var(--border); background: var(--cream); color: var(--muted); cursor: pointer; transition: all 0.12s;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .tag-chip:hover { border-color: var(--terra); color: var(--terra); }
+    .tag-chip.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+    /* Plans grid */
+    .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .plan-card {
+      background: var(--cream);
+      border: 1.5px solid var(--border-lt);
+      border-radius: var(--r-lg);
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.18s var(--ease);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .plan-card:hover { border-color: var(--terra); box-shadow: var(--sh-md); transform: translateY(-2px); }
+    .plan-card.selected { border-color: var(--terra); background: var(--terra-pale); box-shadow: var(--sh-sm); }
+    .pc-emoji { font-size: 1.3rem; }
+    .pc-name { font-family: var(--serif); font-style: italic; font-size: 0.98rem; color: var(--ink); line-height: 1.3; }
+    .pc-meta { font-size: 0.75rem; color: var(--muted); display: flex; gap: 8px; align-items: center; }
+    .pc-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+    .pc-tags .tag { font-size: 0.67rem; padding: 2px 7px; }
+    .pc-progress { margin-top: auto; }
+    .no-plans { text-align: center; padding: 48px 24px; color: var(--muted); }
+
+    /* Preview panel */
+    .preview-wrap { margin-top: 20px; }
+    .preview-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 32px;
+    }
+    .preview-hero { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+    .preview-name { font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--ink); margin-bottom: 6px; }
+    .preview-meta { font-size: 0.82rem; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .preview-desc { color: var(--ink-soft); font-size: 0.93rem; line-height: 1.72; margin-bottom: 22px; }
+    .preview-days { max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 4px; }
+    .preview-day {
+      padding: 13px 16px;
+      background: var(--cream-deep);
+      border: 1px solid var(--border-lt);
+      border-radius: var(--r-md);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .preview-day:hover { background: var(--sand); }
+    .preview-day-row { display: flex; align-items: center; gap: 10px; margin-bottom: 3px; }
+    .preview-day-num {
+      width: 22px; height: 22px;
+      background: var(--terra);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .preview-day-title { font-weight: 700; font-size: 0.88rem; }
+    .preview-day-ref { font-size: 0.78rem; color: var(--terra); }
+    .preview-day-expand { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-lt); }
+    .preview-day-expand p { font-size: 0.83rem; color: var(--ink-soft); margin-bottom: 6px; }
+    .preview-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+
+    /* Generator */
+    .gen-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .gen-full { grid-column: 1 / -1; }
+    .emphasis-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+    .em-chip {
+      padding: 5px 12px; font-size: 0.78rem; border-radius: var(--r-pill);
+      border: 1.5px solid var(--border); background: var(--cream); color: var(--ink-soft);
+      cursor: pointer; transition: all 0.12s;
+    }
+    .em-chip:hover { border-color: var(--terra); color: var(--terra); }
+    .em-chip.active { background: var(--terra); color: #fff; border-color: var(--terra); }
+    .gen-output { margin-top: 22px; }
+    .gen-day-card {
+      background: var(--cream);
+      border: 1px solid var(--border-lt);
+      border-radius: var(--r-lg);
+      padding: 18px;
+      margin-bottom: 10px;
+    }
+    .gdc-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .gdc-label { font-weight: 700; font-size: 0.88rem; color: var(--ink); }
+    .gdc-actions { display: flex; gap: 6px; }
+    .gdc-view-field { margin-bottom: 8px; }
+    .gdc-view-field span { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--terra); margin-bottom: 3px; }
+    .gdc-view-field p { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6; }
+    .gdc-edit-field { margin-bottom: 8px; }
+    .gdc-edit-field label { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .gdc-edit-field input, .gdc-edit-field textarea { width: 100%; padding: 7px 11px; border: 1.5px solid var(--border); border-radius: var(--r-sm); font-family: var(--sans); font-size: 0.84rem; background: var(--cream); color: var(--ink); outline: none; resize: vertical; }
+    .gdc-edit-field textarea { min-height: 72px; }
+    .gdc-edit-field input:focus, .gdc-edit-field textarea:focus { border-color: var(--terra); }
+    .gen-loading { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 48px; text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+    /* Saved plans */
+    .saved-list { display: flex; flex-direction: column; gap: 10px; }
+    .saved-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--cream);
+      border: 1px solid var(--border-lt);
+      border-radius: var(--r-lg);
+      transition: box-shadow 0.15s;
+    }
+    .saved-item:hover { box-shadow: var(--sh-sm); }
+    .saved-emoji { font-size: 1.4rem; flex-shrink: 0; }
+    .saved-info { flex: 1; min-width: 0; }
+    .saved-name { font-weight: 700; font-size: 0.9rem; color: var(--ink); margin-bottom: 2px; }
+    .saved-meta { font-size: 0.75rem; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 5px; }
+    .saved-prog-wrap { width: 100px; flex-shrink: 0; }
+    .saved-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .saved-empty { text-align: center; padding: 48px; color: var(--muted); }
+    .saved-empty-icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+    /* Check-in */
+    .checkin-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+    .ci-option {
+      padding: 12px 6px;
+      text-align: center;
+      border-radius: var(--r-md);
+      border: 1.5px solid var(--border-lt);
+      background: var(--cream);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .ci-option:hover { border-color: var(--terra); background: var(--terra-pale); transform: scale(1.03); }
+    .ci-option.selected { border-color: var(--terra); background: var(--terra); }
+    .ci-option.selected .ci-label { color: rgba(255,255,255,0.8); }
+    .ci-emoji { font-size: 1.3rem; display: block; margin-bottom: 4px; }
+    .ci-label { font-size: 0.67rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .ci-suggestion { font-size: 0.85rem; color: var(--ink-soft); min-height: 22px; padding: 8px 12px; background: var(--sand); border-radius: var(--r-md); }
+
+    /* Random verse */
+    .rv-display {
+      background: var(--sand);
+      border-radius: var(--r-lg);
+      padding: 18px 20px;
+      margin: 12px 0;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .rv-text { font-family: var(--serif); font-style: italic; font-size: 0.95rem; color: var(--ink); line-height: 1.68; }
+    .rv-ref { font-size: 0.78rem; font-weight: 700; color: var(--terra); }
+
+    /* Import zone */
+    .import-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--r-lg);
+      padding: 36px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--muted);
+    }
+    .import-zone:hover { border-color: var(--terra); background: var(--terra-pale); color: var(--terra); }
+
+    #toast { position: fixed; bottom: 24px; right: 24px; background: var(--ink); color: #fff; padding: 12px 18px; border-radius: var(--r-lg); font-size: 0.86rem; z-index: 9000; box-shadow: var(--sh-xl); opacity: 0; transform: translateY(10px); transition: all 0.3s var(--ease); pointer-events: none; display: flex; align-items: center; gap: 8px; }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.success { border-left: 3px solid #72A872; }
+    #toast.error { border-left: 3px solid #C46060; }
+
+    @media (max-width: 900px) {
+      .topbar-inner { grid-template-columns: 1fr; }
+      .account-widget { max-width: 320px; }
+      .plans-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .plans-grid { grid-template-columns: 1fr; }
+      .gen-form { grid-template-columns: 1fr; }
+      .checkin-grid { grid-template-columns: repeat(4, 1fr); }
+      .tab-btn { padding: 12px 14px; font-size: 0.78rem; }
+      .plans-body { padding: 20px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-mark">✦</span>Selah Plans</a>
+    <button class="nav-toggle" id="navToggle">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="plans.html" class="active">Plans</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="plans-page">
+  <!-- Topbar -->
+  <div class="plans-topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <div>
+          <div class="topbar-title">Your Reading Plans</div>
+          <div class="topbar-sub">Browse by mood, generate a custom plan, or continue where you left off.</div>
+          <div class="topbar-stats">
+            <div class="tstat"><div class="tstat-num" id="statPlans">40+</div><div class="tstat-label">Plans</div></div>
+            <div class="tstat"><div class="tstat-num">15</div><div class="tstat-label">Moods</div></div>
+            <div class="tstat"><div class="tstat-num" id="statSaved">0</div><div class="tstat-label">Saved</div></div>
+            <div class="tstat"><div class="tstat-num" id="statDays">0</div><div class="tstat-label">Days Read</div></div>
+          </div>
+        </div>
+        <!-- Account widget -->
+        <div class="account-widget">
+          <div class="aw-logged-out" id="awOut">
+            <label>Save your progress</label>
+            <input type="text" class="aw-input" id="awNameInput" placeholder="Your name" maxlength="40" />
+            <button class="aw-btn" onclick="accountSave()">Create Account →</button>
+          </div>
+          <div class="aw-logged-in" id="awIn">
+            <div class="aw-avatar" id="awAvatar">G</div>
+            <div class="aw-name" id="awName">Welcome back</div>
+            <div class="aw-sub" id="awSub">Progress saved locally</div>
+            <div class="aw-stats-row">
+              <div>
+                <div class="aw-stat-num" id="awStatSaved">0</div>
+                <div class="aw-stat-label">Saved</div>
+              </div>
+              <div>
+                <div class="aw-stat-num" id="awStatDays">0</div>
+                <div class="aw-stat-label">Days Read</div>
+              </div>
+              <div>
+                <div class="aw-stat-num" id="awStatStreak">0</div>
+                <div class="aw-stat-label">Streak</div>
+              </div>
+            </div>
+            <button class="aw-logout" onclick="accountLogout()">Sign out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tab bar -->
+    <div class="tab-bar">
+      <div class="container">
+        <div class="tab-bar-inner">
+          <button class="tab-btn active" data-tab="browse" onclick="switchTab(this,'browse')">📖 Browse Plans</button>
+          <button class="tab-btn" data-tab="daily" onclick="switchTab(this,'daily')">☀️ Daily</button>
+          <button class="tab-btn" data-tab="generate" onclick="switchTab(this,'generate')">✨ Generate</button>
+          <button class="tab-btn" data-tab="saved" onclick="switchTab(this,'saved')">🔖 Saved</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="plans-body">
+
+    <!-- ── BROWSE TAB ── -->
+    <div class="tab-panel active" id="tab-browse">
+
+      <!-- VOTD strip -->
+      <div class="votd-strip">
+        <div class="votd-icon">✦</div>
+        <div style="flex:1;min-width:0;">
+          <div class="votd-strip-label">Verse of the Day</div>
+          <div class="votd-strip-text" id="votdStripText"></div>
+          <div class="votd-strip-ref" id="votdStripRef"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">📖 All Plans</span>
+          <span style="font-size:0.82rem;color:var(--muted);" id="planCountLabel">Loading...</span>
+        </div>
+        <div class="panel-body">
+          <!-- Filters -->
+          <div class="filter-section">
+            <span class="filter-label">Filter by Mood</span>
+            <div class="mood-chips-row" id="moodChipsRow">
+              <button class="mood-chip active" data-mood="" onclick="filterMood(this,'')">All</button>
+            </div>
+            <span class="filter-label">Filter by Theme</span>
+            <div class="tag-chips-row" id="tagChipsRow"></div>
+          </div>
+          <!-- Grid -->
+          <div class="plans-grid" id="plansGrid"></div>
+          <!-- Preview -->
+          <div class="preview-wrap" id="previewWrap" style="display:none;">
+            <div class="preview-card" id="previewCard"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DAILY TAB ── -->
+    <div class="tab-panel" id="tab-daily">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+        <!-- VOTD full -->
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">✦ Verse of the Day</span></div>
+          <div class="panel-body">
+            <div class="votd-card">
+              <div class="votd-eyebrow">✦ Today's Scripture</div>
+              <div class="votd-text" id="votdFull"></div>
+              <div class="votd-ref" id="votdFullRef"></div>
+            </div>
+            <p style="font-size:0.82rem;color:var(--muted);margin-top:14px;text-align:center;">Changes daily. Comes back to anchor you tomorrow.</p>
+          </div>
+        </div>
+
+        <!-- Random verse -->
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">🎲 Random Verse</span></div>
+          <div class="panel-body">
+            <p style="font-size:0.88rem;color:var(--muted);margin-bottom:12px;">Open Scripture and be surprised. Tap to receive a verse.</p>
+            <div class="rv-display" id="rvDisplay">
+              <div style="color:var(--subtle);font-style:italic;font-size:0.88rem;">Press the button to receive a verse.</div>
+            </div>
+            <button class="btn btn-secondary w-full" onclick="randomVerse()" style="justify-content:center;">🎲 New Verse</button>
+          </div>
+        </div>
+
+        <!-- Check-in -->
+        <div class="panel" style="grid-column:1/-1;">
+          <div class="panel-head"><span class="panel-title">🌿 Daily Check-in</span><span class="tag tag-olive">Start here</span></div>
+          <div class="panel-body">
+            <p style="font-size:0.88rem;color:var(--muted);margin-bottom:14px;">How are you arriving today? Choose what's truest right now.</p>
+            <div class="checkin-grid">
+              <div class="ci-option" onclick="checkIn(this,'anxious','anxiety')"><span class="ci-emoji">😟</span><span class="ci-label">Anxious</span></div>
+              <div class="ci-option" onclick="checkIn(this,'tired','burnout')"><span class="ci-emoji">😔</span><span class="ci-label">Tired</span></div>
+              <div class="ci-option" onclick="checkIn(this,'hopeful','hope')"><span class="ci-emoji">🌱</span><span class="ci-label">Hopeful</span></div>
+              <div class="ci-option" onclick="checkIn(this,'grateful','gratitude')"><span class="ci-emoji">🙏</span><span class="ci-label">Grateful</span></div>
+              <div class="ci-option" onclick="checkIn(this,'confused','doubt')"><span class="ci-emoji">🌫️</span><span class="ci-label">Confused</span></div>
+              <div class="ci-option" onclick="checkIn(this,'grieving','grief')"><span class="ci-emoji">💧</span><span class="ci-label">Grieving</span></div>
+              <div class="ci-option" onclick="checkIn(this,'ashamed','shame')"><span class="ci-emoji">🍂</span><span class="ci-label">Ashamed</span></div>
+              <div class="ci-option" onclick="checkIn(this,'angry','anger')"><span class="ci-emoji">🔥</span><span class="ci-label">Angry</span></div>
+              <div class="ci-option" onclick="checkIn(this,'lonely','loneliness')"><span class="ci-emoji">🌙</span><span class="ci-label">Lonely</span></div>
+              <div class="ci-option" onclick="checkIn(this,'joyful','joy')"><span class="ci-emoji">☀️</span><span class="ci-label">Joyful</span></div>
+              <div class="ci-option" onclick="checkIn(this,'lost','purpose')"><span class="ci-emoji">🧭</span><span class="ci-label">Lost</span></div>
+              <div class="ci-option" onclick="checkIn(this,'peaceful','gratitude')"><span class="ci-emoji">☁️</span><span class="ci-label">Peaceful</span></div>
+            </div>
+            <div class="ci-suggestion" id="ciSuggestion">Select how you're feeling to see a suggested plan.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GENERATE TAB ── -->
+    <div class="tab-panel" id="tab-generate">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">✨ Custom Plan Generator</span>
+          <span class="tag tag-olive">AI-Powered</span>
+        </div>
+        <div class="panel-body">
+          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:22px;">Describe your emotional season in your own words and let the AI build a plan around it. Every day entry is editable once generated.</p>
+          <div class="gen-form">
+            <div class="form-group gen-full">
+              <label class="form-label">Your emotional season <span style="color:var(--terra)">*</span></label>
+              <textarea id="genSeason" class="form-textarea" rows="3" placeholder="e.g. I'm struggling with deep anxiety about an uncertain future. I can't stop worrying about what might happen to my family..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Plan Name (optional)</label>
+              <input type="text" id="genName" class="form-input" placeholder="e.g. My Anxiety Plan" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Duration</label>
+              <select id="genDuration" class="form-select">
+                <option value="3">3 days</option>
+                <option value="5" selected>5 days</option>
+                <option value="7">7 days</option>
+                <option value="14">14 days</option>
+                <option value="21">21 days</option>
+                <option value="30">30 days</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reading Style</label>
+              <select id="genStyle" class="form-select">
+                <option value="devotional">Devotional (shorter, more reflection)</option>
+                <option value="deep">Deep Study (longer passages, more context)</option>
+                <option value="narrative">Narrative (story-driven passages)</option>
+              </select>
+            </div>
+            <div class="form-group gen-full">
+              <label class="form-label">Thematic Emphasis</label>
+              <div class="emphasis-row">
+                <span class="em-chip" onclick="toggleEmphasis(this)">Prayer</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Faith</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Comfort</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Identity</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">God's Presence</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Surrender</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Hope</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Courage</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Gratitude</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Lament</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Healing</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Justice</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Grace</span>
+                <span class="em-chip" onclick="toggleEmphasis(this)">Praise</span>
+              </div>
+            </div>
+            <div class="gen-full">
+              <button class="btn btn-primary btn-lg" onclick="generatePlan()" id="genBtn">✨ Generate My Plan</button>
+            </div>
+          </div>
+          <div id="genOutput" class="gen-output"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SAVED TAB ── -->
+    <div class="tab-panel" id="tab-saved">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-title">🔖 Your Saved Plans</span>
+          <label class="btn btn-ghost btn-sm" style="cursor:pointer;">
+            📥 Import JSON
+            <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importPlan(event)"/>
+          </label>
+        </div>
+        <div class="panel-body">
+          <div id="savedEmpty" class="saved-empty">
+            <div class="saved-empty-icon">🔖</div>
+            <h4 style="font-family:var(--serif);font-style:italic;font-weight:400;margin-bottom:8px;">No saved plans yet</h4>
+            <p style="font-size:0.88rem;">Start a built-in plan or generate a custom one to save your progress here.</p>
+            <button class="btn btn-primary mt-6" onclick="switchTab(document.querySelector('[data-tab=browse]'),'browse')">Browse Plans →</button>
+          </div>
+          <div id="savedList" class="saved-list" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- plans-body -->
+</div>
+
+<div id="toast"></div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo"><span class="footer-brand-logo-mark">✦</span>Selah Plans</div>
+        <p class="footer-desc">Bible reading plans centred on your emotional season. Pause, breathe, and meet God where you are.</p>
+      </div>
+      <div class="footer-col">
+        <h6>Pages</h6>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="plans.html">Plans</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Plans</h6>
+        <ul>
+          <li><a href="plans.html?mood=anxiety">Anxiety</a></li>
+          <li><a href="plans.html?mood=grief">Grief</a></li>
+          <li><a href="plans.html?mood=doubt">Doubt</a></li>
+          <li><a href="plans.html?mood=shame">Shame</a></li>
+          <li><a href="plans.html?mood=burnout">Burnout</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Selah Plans.</span>
+      <span>Isaiah 40:8</span>
+    </div>
+  </div>
+</footer>
+
+<script src="plans-data.js"></script>
+<script>
+// ── Nav ──
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+
+// ── State ──
+let activeMood = '';
+let activeTag = '';
+let selectedPlanId = null;
+let generatedPlan = null;
+
+// ── Tab switch ──
+function switchTab(btn, tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tabId).classList.add('active');
+}
+
+// ── Account ──
+function accountSave() {
+  const name = document.getElementById('awNameInput').value.trim();
+  if (!name) { showToast('Please enter a name.','error'); return; }
+  localStorage.setItem('selah_name', name);
+  localStorage.setItem('selah_joined', new Date().toISOString());
+  renderAccount();
+  showToast('Welcome, ' + name + '! ✓','success');
+}
+function accountLogout() {
+  localStorage.removeItem('selah_name');
+  renderAccount();
+  showToast('Signed out.');
+}
+function renderAccount() {
+  const name = localStorage.getItem('selah_name');
+  const saved = getSaved();
+  const days = saved.reduce((a,p) => a + (p.completed||[]).length, 0);
+  const streak = calcStreak();
+
+  if (name) {
+    document.getElementById('awOut').style.display = 'none';
+    document.getElementById('awIn').style.display = '';
+    document.getElementById('awAvatar').textContent = name.charAt(0).toUpperCase();
+    document.getElementById('awName').textContent = name;
+    document.getElementById('awSub').textContent = 'Joined ' + new Date(localStorage.getItem('selah_joined')||Date.now()).toLocaleDateString('en-AU',{month:'long',year:'numeric'});
+    document.getElementById('awStatSaved').textContent = saved.length;
+    document.getElementById('awStatDays').textContent = days;
+    document.getElementById('awStatStreak').textContent = streak;
+  } else {
+    document.getElementById('awOut').style.display = '';
+    document.getElementById('awIn').style.display = 'none';
+  }
+  document.getElementById('statSaved').textContent = saved.length;
+  document.getElementById('statDays').textContent = days;
+}
+
+function calcStreak() {
+  const raw = localStorage.getItem('selah_read_days');
+  if (!raw) return 0;
+  try {
+    const days = JSON.parse(raw);
+    let streak = 0;
+    const today = new Date(); today.setHours(0,0,0,0);
+    for (let i = 0; i < 365; i++) {
+      const d = new Date(today); d.setDate(d.getDate() - i);
+      const key = d.toISOString().split('T')[0];
+      if (days.includes(key)) streak++;
+      else if (i > 0) break;
+    }
+    return streak;
+  } catch { return 0; }
+}
+function markReadToday() {
+  const key = new Date().toISOString().split('T')[0];
+  let days = [];
+  try { days = JSON.parse(localStorage.getItem('selah_read_days')||'[]'); } catch {}
+  if (!days.includes(key)) { days.push(key); localStorage.setItem('selah_read_days', JSON.stringify(days)); }
+}
+
+// ── Filters ──
+function buildFilters() {
+  const moodRow = document.getElementById('moodChipsRow');
+  moodRow.innerHTML = `<button class="mood-chip active" data-mood="" onclick="filterMood(this,'')">All</button>`;
+  MOODS.forEach(m => {
+    moodRow.insertAdjacentHTML('beforeend', `<button class="mood-chip" data-mood="${m.id}" onclick="filterMood(this,'${m.id}')">${m.emoji} ${m.label}</button>`);
+  });
+  const tagRow = document.getElementById('tagChipsRow');
+  const tags = getAllTags();
+  tagRow.innerHTML = `<button class="tag-chip active" data-tag="" onclick="filterTag(this,'')">All</button>` +
+    tags.map(t => `<button class="tag-chip" data-tag="${t}" onclick="filterTag(this,'${t}')">${t}</button>`).join('');
+}
+function filterMood(btn, mood) {
+  document.querySelectorAll('#moodChipsRow .mood-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); activeMood = mood; renderGrid();
+}
+function filterTag(btn, tag) {
+  document.querySelectorAll('#tagChipsRow .tag-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active'); activeTag = tag; renderGrid();
+}
+
+// ── Plans grid ──
+function renderGrid() {
+  let plans = SELAH_PLANS;
+  if (activeMood) plans = plans.filter(p => p.mood === activeMood);
+  if (activeTag) plans = plans.filter(p => (p.tags||[]).includes(activeTag));
+  document.getElementById('planCountLabel').textContent = plans.length + ' plan' + (plans.length !== 1 ? 's' : '');
+  const saved = getSaved();
+  document.getElementById('plansGrid').innerHTML = plans.length ? plans.map(p => {
+    const sv = saved.find(s => s.id === p.id);
+    const prog = sv ? sv.completed.length : 0;
+    const pct = p.duration ? Math.round(prog/p.duration*100) : 0;
+    return `
+      <div class="plan-card ${selectedPlanId===p.id?'selected':''}" onclick="selectPlan('${p.id}')">
+        <div class="pc-emoji">${p.moodEmoji}</div>
+        <div class="pc-name">${p.name}</div>
+        <div class="pc-meta">
+          <span>${p.duration}d</span>
+          <span class="tag tag-terra">${p.moodLabel}</span>
+          ${p.featured?'<span class="tag tag-gold">✦</span>':''}
+        </div>
+        <div class="pc-tags">${(p.tags||[]).slice(0,3).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        ${prog>0?`<div class="pc-progress"><div class="progress-wrap mt-2"><div class="progress-fill" style="width:${pct}%"></div></div><div style="font-size:0.7rem;color:var(--muted);margin-top:3px;">${prog}/${p.duration} days</div></div>`:''}
+      </div>`;
+  }).join('') : `<div class="no-plans" style="grid-column:1/-1;">No plans found for this filter.</div>`;
+}
+
+function selectPlan(id) {
+  selectedPlanId = id;
+  renderGrid();
+  const plan = getPlanById(id);
+  if (!plan) return;
+  const wrap = document.getElementById('previewWrap');
+  const card = document.getElementById('previewCard');
+  wrap.style.display = '';
+  const saved = getSaved();
+  const sv = saved.find(s => s.id === id);
+  const prog = sv ? sv.completed.length : 0;
+  const pct = plan.duration ? Math.round(prog/plan.duration*100) : 0;
+
+  card.innerHTML = `
+    <div class="preview-hero">
+      <div>
+        <div style="font-size:1.5rem;margin-bottom:8px;">${plan.moodEmoji}</div>
+        <div class="preview-name">${plan.name}</div>
+        <div class="preview-meta">
+          <span>🗓 ${plan.duration} days</span>
+          <span class="tag tag-terra">${plan.moodLabel}</span>
+          ${prog>0?`<span class="tag tag-olive">${prog}/${plan.duration} read</span>`:''}
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="startBuiltin('${id}')">${prog>0?'▶ Continue':'▶ Start Plan'}</button>
+        <button class="btn btn-ghost btn-sm" onclick="savePlan('${id}')">🔖 Save</button>
+        <button class="btn btn-ghost btn-sm" onclick="exportBuiltin('${id}')">📤</button>
+      </div>
+    </div>
+    <div class="preview-desc">${plan.description}</div>
+    ${prog>0?`<div class="progress-wrap mb-4"><div class="progress-fill" style="width:${pct}%"></div></div>`:''}
+    <div class="preview-days">
+      ${plan.days.map(d=>`
+        <div class="preview-day" onclick="toggleDayExpand(this)">
+          <div class="preview-day-row">
+            <div class="preview-day-num">${d.day}</div>
+            <div>
+              <div class="preview-day-title">${d.title}</div>
+              <div class="preview-day-ref">${d.reference}</div>
+            </div>
+          </div>
+          <div class="preview-day-expand">
+            <p><strong style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--terra);">Reflection</strong><br>${d.reflection}</p>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="preview-actions">
+      <button class="btn btn-primary btn-lg" onclick="startBuiltin('${id}')">${prog>0?'▶ Continue Reading':'▶ Begin This Plan'}</button>
+      <button class="btn btn-secondary" onclick="savePlan('${id}')">🔖 Save to Library</button>
+    </div>
+  `;
+  setTimeout(() => wrap.scrollIntoView({behavior:'smooth', block:'nearest'}), 50);
+}
+
+function toggleDayExpand(el) {
+  const ex = el.querySelector('.preview-day-expand');
+  if (ex) ex.style.display = ex.style.display === 'none' || !ex.style.display ? 'block' : 'none';
+}
+
+// ── Plan actions ──
+function startBuiltin(id) {
+  const plan = getPlanById(id);
+  if (!plan) return;
+  localStorage.setItem('selah_active_plan', JSON.stringify(plan));
+  savePlan(id, true);
+  markReadToday();
+  window.location.href = 'plan-view.html';
+}
+function savePlan(id, silent=false) {
+  const plan = getPlanById(id);
+  if (!plan) return;
+  const saved = getSaved();
+  if (!saved.find(p => p.id === id)) {
+    saved.push({ id:plan.id, name:plan.name, moodEmoji:plan.moodEmoji, moodLabel:plan.moodLabel, duration:plan.duration, completed:[], source:'builtin', addedAt:Date.now() });
+    setSaved(saved); updateStats(); renderSavedList();
+    if (!silent) showToast('Saved to library ✓','success');
+  } else if (!silent) showToast('Already in your library.');
+}
+function exportBuiltin(id) {
+  const plan = getPlanById(id);
+  const blob = new Blob([JSON.stringify(plan,null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=(plan.name||'plan').replace(/\s+/g,'_')+'.json'; a.click();
+  showToast('Exported!');
+}
+
+// ── Saved ──
+function getSaved() { try { return JSON.parse(localStorage.getItem('selah_saved')||'[]'); } catch { return []; } }
+function setSaved(arr) { localStorage.setItem('selah_saved', JSON.stringify(arr)); }
+function updateStats() {
+  const saved = getSaved();
+  const days = saved.reduce((a,p) => a+(p.completed||[]).length, 0);
+  document.getElementById('statSaved').textContent = saved.length;
+  document.getElementById('statDays').textContent = days;
+  if (localStorage.getItem('selah_name')) {
+    document.getElementById('awStatSaved').textContent = saved.length;
+    document.getElementById('awStatDays').textContent = days;
+    document.getElementById('awStatStreak').textContent = calcStreak();
+  }
+}
+function renderSavedList() {
+  const saved = getSaved();
+  const empty = document.getElementById('savedEmpty');
+  const list = document.getElementById('savedList');
+  if (!saved.length) { empty.style.display=''; list.style.display='none'; return; }
+  empty.style.display='none'; list.style.display='flex';
+  list.innerHTML = saved.map((p,i) => {
+    const prog = (p.completed||[]).length;
+    const pct = p.duration ? Math.round(prog/p.duration*100) : 0;
+    return `
+      <div class="saved-item">
+        <div class="saved-emoji">${p.moodEmoji||'📖'}</div>
+        <div class="saved-info">
+          <div class="saved-name">${p.name}</div>
+          <div class="saved-meta"><span>${p.moodLabel||''}</span><span>${p.duration||'?'} days</span><span>${prog} read</span></div>
+          <div class="progress-wrap"><div class="progress-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="saved-prog-wrap">
+          <div style="font-size:0.72rem;color:var(--muted);text-align:right;margin-bottom:3px;">${pct}%</div>
+        </div>
+        <div class="saved-actions">
+          <button class="btn btn-primary btn-sm" onclick="continueFromSaved(${i})">▶</button>
+          <button class="btn btn-icon btn-sm" onclick="exportSaved(${i})" title="Export">📤</button>
+          <button class="btn btn-icon btn-sm" onclick="deleteSaved(${i})" title="Remove">🗑</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+function continueFromSaved(idx) {
+  const saved = getSaved()[idx];
+  if (!saved) return;
+  let plan = getPlanById(saved.id);
+  if (!plan && saved.planData) plan = saved.planData;
+  if (!plan) { showToast('Could not load plan.','error'); return; }
+  localStorage.setItem('selah_active_plan', JSON.stringify(plan));
+  localStorage.setItem('selah_active_saved_idx', String(idx));
+  markReadToday();
+  window.location.href = 'plan-view.html';
+}
+function exportSaved(idx) {
+  const saved = getSaved()[idx];
+  let plan = getPlanById(saved.id);
+  if (!plan && saved.planData) plan = saved.planData;
+  const blob = new Blob([JSON.stringify({...saved,planData:plan},null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=(saved.name||'plan').replace(/\s+/g,'_')+'.json'; a.click();
+  showToast('Exported!');
+}
+function deleteSaved(idx) {
+  const saved = getSaved(); saved.splice(idx,1); setSaved(saved);
+  renderSavedList(); updateStats(); renderAccount();
+  showToast('Removed from library.');
+}
+function importPlan(e) {
+  const file = e.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      const plan = data.planData || data;
+      if (!plan.days || !Array.isArray(plan.days)) { showToast('Invalid plan file.','error'); return; }
+      const saved = getSaved();
+      saved.push({ id:plan.id||'imported_'+Date.now(), name:plan.name||'Imported Plan', moodEmoji:plan.moodEmoji||'📖', moodLabel:plan.moodLabel||'', duration:plan.days.length, completed:data.completed||[], source:'imported', planData:plan, addedAt:Date.now() });
+      setSaved(saved); renderSavedList(); updateStats(); renderAccount();
+      showToast('Plan imported ✓','success');
+    } catch { showToast('Could not parse file.','error'); }
+  };
+  reader.readAsText(file); e.target.value = '';
+}
+
+// ── Daily tools ──
+function randomVerse() {
+  const v = getRandomVerse();
+  document.getElementById('rvDisplay').innerHTML = `<div class="rv-text">"${v.text}"</div><div class="rv-ref">${v.ref}</div>`;
+}
+const CI_MAP = {
+  anxious:'anxiety', tired:'burnout', hopeful:'hope', grateful:'gratitude',
+  confused:'doubt', grieving:'grief', ashamed:'shame', angry:'anger',
+  lonely:'loneliness', joyful:'joy', lost:'purpose', peaceful:'gratitude'
+};
+const CI_MSG = {
+  anxious: 'Try <a href="plans.html?mood=anxiety" style="color:var(--terra);">Peace in the Storm</a> — Philippians 4 meets you right here.',
+  tired: '<a href="plans.html?mood=burnout" style="color:var(--terra);">Rest for the Exhausted</a> — permission to stop and be restored.',
+  hopeful: 'Channel that hope into <a href="plans.html?mood=hope" style="color:var(--terra);">Anchors for the Waiting</a>.',
+  grateful: 'Deepen it with <a href="plans.html?mood=gratitude" style="color:var(--terra);">Counting Gifts</a> — the sacred practice of noticing.',
+  confused: '<a href="plans.html?mood=doubt" style="color:var(--terra);">Faith Through Questions</a> — God can handle your uncertainty.',
+  grieving: '<a href="plans.html?mood=grief" style="color:var(--terra);">Through the Valley</a> — slow, careful, unhurried.',
+  ashamed: '<a href="plans.html?mood=shame" style="color:var(--terra);">Grace for the Hidden Self</a> — the most radical news in the world.',
+  angry: '<a href="plans.html?mood=anger" style="color:var(--terra);">Holy and Unholy Fire</a> — discerning and directing anger well.',
+  lonely: '<a href="plans.html?mood=loneliness" style="color:var(--terra);">You Are Not Alone</a> — God knows you by name.',
+  joyful: '<a href="plans.html?mood=joy" style="color:var(--terra);">Overflow</a> — bring your joy to God and let it go deeper.',
+  lost: '<a href="plans.html?mood=purpose" style="color:var(--terra);">Why Am I Here?</a> — discovering purpose in the One who made you.',
+  peaceful: 'A day for thanksgiving. Try <a href="plans.html?mood=gratitude" style="color:var(--terra);">The Ordinary Sacred</a>.',
+};
+function checkIn(el, mood, moodId) {
+  document.querySelectorAll('.ci-option').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('ciSuggestion').innerHTML = CI_MSG[mood] || '';
+}
+
+// ── AI Generator ──
+function toggleEmphasis(el) { el.classList.toggle('active'); }
+
+async function generatePlan() {
+  const season = document.getElementById('genSeason').value.trim();
+  if (!season) { showToast('Please describe your emotional season.','error'); return; }
+  const duration = parseInt(document.getElementById('genDuration').value);
+  const style = document.getElementById('genStyle').value;
+  const emphasis = Array.from(document.querySelectorAll('.em-chip.active')).map(e => e.textContent.trim());
+  const name = document.getElementById('genName').value.trim() || 'My Custom Plan';
+
+  document.getElementById('genOutput').innerHTML = `<div class="gen-loading"><div class="spinner"></div><div>Building your plan — finding Scripture for your season...</div></div>`;
+
+  const prompt = `You are a thoughtful, biblically grounded Bible reading plan designer. Create a ${duration}-day Bible reading plan for someone in this emotional season: "${season}"
+
+Reading style: ${style}
+Emphasis: ${emphasis.length ? emphasis.join(', ') : 'general'}
+Plan name: ${name}
+
+Return ONLY a JSON object (no markdown, no explanation):
+{
+  "id": "custom_${Date.now()}",
+  "mood": "custom",
+  "moodLabel": "Custom",
+  "moodEmoji": "✨",
+  "name": "${name}",
+  "duration": ${duration},
+  "description": "A 2-sentence description.",
+  "tags": ["tag1","tag2","tag3"],
+  "days": [{"day":1,"title":"3-5 word title","reference":"Book Chapter:Verses","reflection":"2-3 sentence personal reflection question","prayer":"3-5 sentence first-person prayer"}]
+}
+
+Rules: Choose Scripture matched to the season. Reflection questions open the heart, not test comprehension. Prayers are honest and specific. Vary Old and New Testament. Arc from honest acknowledgement toward hope where appropriate.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:4096, messages:[{role:'user',content:prompt}] })
+    });
+    const data = await res.json();
+    const text = (data.content||[]).map(b=>b.text||'').join('');
+    generatedPlan = JSON.parse(text.replace(/```json|```/g,'').trim());
+    renderGenPlan(generatedPlan);
+  } catch(e) {
+    document.getElementById('genOutput').innerHTML = `<div style="padding:20px;background:#FFF0F0;border:1px solid #F5C0C0;border-radius:var(--r-md);color:#C46060;"><strong>Generation failed.</strong> ${e.message||'Please try again.'}</div>`;
+  }
+}
+
+function renderGenPlan(plan) {
+  document.getElementById('genOutput').innerHTML = `
+    <div style="background:var(--olive-pale);border:1px solid var(--olive-border);border-radius:var(--r-lg);padding:24px;margin-top:8px;">
+      <div style="font-weight:700;color:var(--olive);margin-bottom:8px;">✨ Generated: ${plan.name}</div>
+      <p style="font-size:0.88rem;color:var(--ink-soft);margin-bottom:18px;">${plan.description||''}</p>
+      <div id="genDaysContainer">
+        ${plan.days.map((d,i) => renderGenDay(d,i)).join('')}
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;">
+        <button class="btn btn-primary" onclick="saveGenPlan()">🔖 Save Plan</button>
+        <button class="btn btn-dark" onclick="startGenPlan()">▶ Start Reading</button>
+        <button class="btn btn-ghost" onclick="exportGenPlan()">📤 Export JSON</button>
+      </div>
+    </div>`;
+}
+function renderGenDay(d,i) {
+  return `
+    <div class="gen-day-card" data-day="${i}">
+      <div class="gdc-head">
+        <span class="gdc-label">Day ${d.day}: ${d.title}</span>
+        <div class="gdc-actions">
+          <button class="btn btn-icon btn-sm" onclick="toggleGenEdit(${i})">✏️</button>
+          <button class="btn btn-icon btn-sm" onclick="regenDay(${i})">🔄</button>
+        </div>
+      </div>
+      <div class="gdc-view">
+        <div class="gdc-view-field"><span>Reference</span><p style="color:var(--terra);font-weight:700;">${d.reference}</p></div>
+        <div class="gdc-view-field"><span>Reflection</span><p>${d.reflection}</p></div>
+        <div class="gdc-view-field"><span>Prayer</span><p style="font-style:italic;color:var(--muted);">${d.prayer}</p></div>
+      </div>
+      <div class="gdc-edit" style="display:none;">
+        <div class="gdc-edit-field"><label>Title</label><input value="${esc(d.title)}" oninput="updGen(${i},'title',this.value)"/></div>
+        <div class="gdc-edit-field"><label>Reference</label><input value="${esc(d.reference)}" oninput="updGen(${i},'reference',this.value)"/></div>
+        <div class="gdc-edit-field"><label>Reflection</label><textarea rows="3" oninput="updGen(${i},'reflection',this.value)">${esc(d.reflection)}</textarea></div>
+        <div class="gdc-edit-field"><label>Prayer</label><textarea rows="3" oninput="updGen(${i},'prayer',this.value)">${esc(d.prayer)}</textarea></div>
+      </div>
+    </div>`;
+}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function toggleGenEdit(i) {
+  const card = document.querySelector(`.gen-day-card[data-day="${i}"]`);
+  if (!card) return;
+  const view = card.querySelector('.gdc-view'), edit = card.querySelector('.gdc-edit'), btn = card.querySelector('.gdc-actions button');
+  const isEdit = edit.style.display !== 'none';
+  edit.style.display = isEdit ? 'none' : '';
+  view.style.display = isEdit ? '' : 'none';
+  btn.textContent = isEdit ? '✏️' : '💾';
+  if (isEdit && generatedPlan) refreshGenView(i);
+}
+function updGen(i,f,v) { if(generatedPlan&&generatedPlan.days[i]) generatedPlan.days[i][f]=v; }
+function refreshGenView(i) {
+  if (!generatedPlan) return;
+  const d = generatedPlan.days[i];
+  const card = document.querySelector(`.gen-day-card[data-day="${i}"]`);
+  if (!card) return;
+  card.querySelector('.gdc-view').innerHTML = `
+    <div class="gdc-view-field"><span>Reference</span><p style="color:var(--terra);font-weight:700;">${d.reference}</p></div>
+    <div class="gdc-view-field"><span>Reflection</span><p>${d.reflection}</p></div>
+    <div class="gdc-view-field"><span>Prayer</span><p style="font-style:italic;color:var(--muted);">${d.prayer}</p></div>`;
+  card.querySelector('.gdc-label').textContent = `Day ${d.day}: ${d.title}`;
+}
+async function regenDay(i) {
+  if (!generatedPlan) return;
+  const season = document.getElementById('genSeason').value.trim();
+  const btn = document.querySelector(`.gen-day-card[data-day="${i}"] .gdc-actions button:last-child`);
+  if (btn) { btn.disabled=true; btn.textContent='...'; }
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:`Regenerate day ${i+1} of a ${generatedPlan.duration}-day plan for: "${season||'emotional difficulty'}". Return ONLY JSON: {"day":${i+1},"title":"...","reference":"...","reflection":"...","prayer":"..."}`}]})});
+    const data = await res.json();
+    const day = JSON.parse((data.content||[]).map(b=>b.text||'').join('').replace(/```json|```/g,'').trim());
+    generatedPlan.days[i] = day;
+    const card = document.querySelector(`.gen-day-card[data-day="${i}"]`);
+    if (card) card.outerHTML = renderGenDay(day, i);
+    showToast('Day regenerated ✓','success');
+  } catch { showToast('Regeneration failed.','error'); }
+  if (btn) { btn.disabled=false; btn.textContent='🔄'; }
+}
+function saveGenPlan() {
+  if (!generatedPlan) return;
+  const saved = getSaved();
+  saved.push({id:generatedPlan.id||'gen_'+Date.now(),name:generatedPlan.name,moodEmoji:'✨',moodLabel:'Custom',duration:generatedPlan.days.length,completed:[],source:'generated',planData:generatedPlan,addedAt:Date.now()});
+  setSaved(saved); renderSavedList(); updateStats(); renderAccount();
+  showToast('Plan saved ✓','success');
+}
+function startGenPlan() {
+  if (!generatedPlan) return;
+  saveGenPlan();
+  localStorage.setItem('selah_active_plan', JSON.stringify(generatedPlan));
+  markReadToday();
+  window.location.href = 'plan-view.html';
+}
+function exportGenPlan() {
+  if (!generatedPlan) return;
+  const blob = new Blob([JSON.stringify(generatedPlan,null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=(generatedPlan.name||'plan').replace(/\s+/g,'_')+'.json'; a.click();
+  showToast('Exported!');
+}
+
+// ── Toast ──
+function showToast(msg, type='') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (type?' '+type:'');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+// ── Init ──
+function init() {
+  // VOTD
+  const votd = getVerseOfTheDay();
+  document.getElementById('votdStripText').textContent = '"' + votd.text + '"';
+  document.getElementById('votdStripRef').textContent = votd.ref;
+  document.getElementById('votdFull').textContent = votd.text;
+  document.getElementById('votdFullRef').textContent = votd.ref;
+
+  buildFilters();
+  renderGrid();
+  renderSavedList();
+  updateStats();
+  renderAccount();
+
+  // URL params
+  const params = new URLSearchParams(window.location.search);
+  const mood = params.get('mood');
+  const planId = params.get('plan');
+  if (mood) {
+    const chip = document.querySelector(`.mood-chip[data-mood="${mood}"]`);
+    if (chip) { chip.click(); }
+  }
+  if (planId) {
+    setTimeout(() => selectPlan(planId), 100);
+  }
+}
+
+init();
+</script>
+</body>
+</html>

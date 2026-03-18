@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Services — Selah Plans</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .services-hero {
+      padding: calc(var(--nav-h) + 80px) 0 80px;
+      background: linear-gradient(160deg, var(--sand) 0%, var(--cream) 55%);
+    }
+    .services-hero h1 { font-style: italic; margin-bottom: 18px; }
+    .feat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 52px; }
+    .feat-card {
+      background: var(--card);
+      border: 1.5px solid var(--border-lt);
+      border-radius: var(--r-xl);
+      padding: 32px;
+      box-shadow: var(--sh-sm);
+      transition: all 0.2s var(--ease);
+    }
+    .feat-card:hover { box-shadow: var(--sh-md); transform: translateY(-2px); }
+    .feat-card.featured { border-color: var(--terra); background: linear-gradient(160deg, var(--terra-pale) 0%, var(--card) 60%); }
+    .feat-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+    .feat-name { font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--ink); margin-bottom: 8px; }
+    .feat-desc { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.75; margin-bottom: 16px; }
+    .feat-points { display: flex; flex-direction: column; gap: 6px; }
+    .feat-point { display: flex; align-items: flex-start; gap: 8px; font-size: 0.86rem; color: var(--ink-soft); }
+    .feat-point::before { content: '✓'; color: var(--terra); font-weight: 700; flex-shrink: 0; line-height: 1.5; }
+    .moods-showcase { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 48px; }
+    .ms-card { background: var(--card); border: 1px solid var(--border-lt); border-radius: var(--r-lg); padding: 16px 12px; text-align: center; transition: all 0.15s; cursor: default; }
+    .ms-card:hover { border-color: var(--terra); transform: translateY(-2px); box-shadow: var(--sh-sm); }
+    .ms-emoji { font-size: 1.4rem; display: block; margin-bottom: 6px; }
+    .ms-name { font-size: 0.8rem; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+    .ms-plans { font-size: 0.7rem; color: var(--muted); }
+    .how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .steps-list { display: flex; flex-direction: column; gap: 22px; }
+    .step-row { display: flex; gap: 18px; align-items: flex-start; }
+    .step-bullet { width: 36px; height: 36px; background: var(--terra); color: #fff; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1rem; flex-shrink: 0; box-shadow: 0 2px 8px rgba(176,85,48,0.3); }
+    .step-content h4 { font-size: 0.95rem; margin-bottom: 4px; }
+    .step-content p { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.65; }
+    @media (max-width: 768px) {
+      .feat-grid { grid-template-columns: 1fr; }
+      .moods-showcase { grid-template-columns: repeat(3, 1fr); }
+      .how-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 500px) { .moods-showcase { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-mark">✦</span>Selah Plans</a>
+    <button class="nav-toggle" id="navToggle">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="plans.html" class="nav-cta">Browse Plans</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="services-hero">
+  <div class="container">
+    <div style="max-width:600px;">
+      <div class="section-eyebrow">What's Inside</div>
+      <h1>Everything in<br>Selah Plans</h1>
+      <p class="lead">A complete set of tools for meeting God in your emotional season — built-in plans, an AI generator, daily Scripture, personal notes, and a growing library of moods.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="section" style="background:var(--cream-deep);">
+  <div class="container">
+    <div class="section-eyebrow">Features</div>
+    <h2 class="section-title">Everything you need, nothing you don't</h2>
+    <div class="feat-grid">
+      <div class="feat-card featured">
+        <span class="feat-icon">📖</span>
+        <div class="feat-name">40+ Built-in Plans</div>
+        <div class="feat-desc">Carefully written plans across 15 emotional categories — every day with a passage, a deep reflection question, and a written prayer.</div>
+        <div class="feat-points">
+          <div class="feat-point">15 emotional categories (moods)</div>
+          <div class="feat-point">Plans ranging from 5 to 14 days</div>
+          <div class="feat-point">Deep reflection questions, not comprehension tests</div>
+          <div class="feat-point">Honest, specific prayers in plain language</div>
+          <div class="feat-point">Links to Bible Gateway for any translation</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">✨</span>
+        <div class="feat-name">AI Custom Generator</div>
+        <div class="feat-desc">Describe your season in your own words. The AI builds a fully personalised plan — editable day by day, with single-day regeneration.</div>
+        <div class="feat-points">
+          <div class="feat-point">Write anything: "I'm afraid of losing my job and I feel like God is absent"</div>
+          <div class="feat-point">Choose 3–30 days and reading style</div>
+          <div class="feat-point">Select thematic emphasis (prayer, lament, identity, etc.)</div>
+          <div class="feat-point">Edit any day's content after generation</div>
+          <div class="feat-point">Regenerate individual days you don't connect with</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">✦</span>
+        <div class="feat-name">Verse of the Day</div>
+        <div class="feat-desc">A fresh verse every day, deterministically assigned — so it changes reliably each morning without needing an account or internet.</div>
+        <div class="feat-points">
+          <div class="feat-point">Displayed prominently on the plans page every day</div>
+          <div class="feat-point">Rotates through 31 curated Scripture passages</div>
+          <div class="feat-point">Works offline — no server needed</div>
+          <div class="feat-point">Separate from your reading plan so both can exist together</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🌿</span>
+        <div class="feat-name">Daily Check-in</div>
+        <div class="feat-desc">Not sure where to start? The daily check-in helps you name how you're arriving and suggests a plan matched to that emotion.</div>
+        <div class="feat-points">
+          <div class="feat-point">12 emotional check-in options</div>
+          <div class="feat-point">Instant plan suggestion with direct link</div>
+          <div class="feat-point">No data stored — purely a helpful tool</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🔖</span>
+        <div class="feat-name">Saved Library</div>
+        <div class="feat-desc">Save any plan to your personal library, track your progress, and pick up exactly where you left off.</div>
+        <div class="feat-points">
+          <div class="feat-point">Progress tracking per plan (days completed)</div>
+          <div class="feat-point">Visual progress bars across all saved plans</div>
+          <div class="feat-point">Export any plan as JSON to back it up</div>
+          <div class="feat-point">Import plans to restore or share</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">📝</span>
+        <div class="feat-name">Daily Notes</div>
+        <div class="feat-desc">Each day of reading includes an optional notes field — saved locally per plan and per day, so your reflections stay with the passage.</div>
+        <div class="feat-points">
+          <div class="feat-point">Notes saved automatically as you type</div>
+          <div class="feat-point">Stored locally — no account needed</div>
+          <div class="feat-point">Persists across sessions</div>
+          <div class="feat-point">Per-day, per-plan — so they don't get mixed up</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Moods showcase -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Emotional Categories</div>
+    <h2 class="section-title">15 seasons of the soul</h2>
+    <p class="section-subtitle">Every plan is anchored in a mood — not as a limitation, but as the door in. Choose where you are and let Scripture find you there.</p>
+    <div class="moods-showcase" id="moodsShowcase"></div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="section" style="background:var(--sand);">
+  <div class="container">
+    <div class="how-inner">
+      <div>
+        <div class="section-eyebrow">How It Works</div>
+        <h2 class="section-title">Start in under a minute</h2>
+        <p style="margin-bottom:32px;">No account, no setup, no onboarding. Just choose a mood and begin.</p>
+        <a href="plans.html" class="btn btn-primary btn-lg">Begin Now →</a>
+      </div>
+      <div class="steps-list">
+        <div class="step-row"><div class="step-bullet">1</div><div class="step-content"><h4>Choose your emotional season</h4><p>Select from 15 moods — or use the daily check-in if you're not sure where to start.</p></div></div>
+        <div class="step-row"><div class="step-bullet">2</div><div class="step-content"><h4>Select or generate a plan</h4><p>Pick a built-in plan, or describe your situation to the AI generator for something fully personalised.</p></div></div>
+        <div class="step-row"><div class="step-bullet">3</div><div class="step-content"><h4>Open the day's passage</h4><p>Each day gives you a Scripture reference (with a link to Bible Gateway), a reflection question, and a prayer.</p></div></div>
+        <div class="step-row"><div class="step-bullet">4</div><div class="step-content"><h4>Reflect, pray, take notes</h4><p>Sit with the reflection. Pray the written prayer or use your own. Add notes in the text field — they're saved locally.</p></div></div>
+        <div class="step-row"><div class="step-bullet">5</div><div class="step-content"><h4>Mark complete and return tomorrow</h4><p>Your progress is tracked automatically. Return tomorrow and the next day is ready and waiting.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background:var(--ink);">
+  <div class="container" style="max-width:520px;text-align:center;">
+    <div class="section-eyebrow" style="justify-content:center;color:var(--terra-lt);">Ready?</div>
+    <h2 style="color:rgba(253,250,244,0.95);font-style:italic;margin-bottom:14px;">Start with where you are</h2>
+    <p style="color:rgba(253,250,244,0.5);margin-bottom:28px;">Free, no account required, no subscription. Just Scripture for your season.</p>
+    <a href="plans.html" class="btn btn-primary btn-xl">Browse All Plans →</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-brand-logo"><span class="footer-brand-logo-mark">✦</span>Selah Plans</div><p class="footer-desc">Bible reading plans centred on your emotional season.</p></div>
+      <div class="footer-col"><h6>Pages</h6><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="plans.html">Plans</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2025 Selah Plans.</span><span>Isaiah 40:8</span></div>
+  </div>
+</footer>
+
+<script src="plans-data.js"></script>
+<script>
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+
+// Mood showcase
+const plansByMood = {};
+SELAH_PLANS.forEach(p => { plansByMood[p.mood] = (plansByMood[p.mood]||0)+1; });
+document.getElementById('moodsShowcase').innerHTML = MOODS.map(m => `
+  <a href="plans.html?mood=${m.id}" class="ms-card">
+    <span class="ms-emoji">${m.emoji}</span>
+    <div class="ms-name">${m.label}</div>
+    <div class="ms-plans">${plansByMood[m.id]||0} plan${(plansByMood[m.id]||0)!==1?'s':''}</div>
+  </a>
+`).join('');
+</script>
+</body>
+</html>
